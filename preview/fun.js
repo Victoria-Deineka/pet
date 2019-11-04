@@ -17,39 +17,38 @@ let appData = {
     savings: true,
     income: [],
     expenses: {},
-};
-
-function chooseExpenses() {
-    for (let i = 0; i < 2; i++) {
-        let a = +prompt("Введите обязательную статью расходов в этом месяце",''),
-            b = +prompt("Во сколько обойдется?",'');
+    chooseExpenses: function() {
+        for (let i = 0; i < 2; i++) {
+            let a = +prompt("Введите обязательную статью расходов в этом месяце",''),
+                b = +prompt("Во сколько обойдется?",'');
+        
+            if ( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null
+                && a != '' && b != '' && a.length < 50) {
+                console.log("done");
+                appData.expenses[a] = b;
+            } 
+        }
+    },
+    detectDayBudget: function() {
+        if (appData.savings == true) {
+            let save = +prompt("Kakova suma trat v mesyac?");
     
-        if ( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null
-            && a != '' && b != '' && a.length < 50) {
-            console.log("done");
-            appData.expenses[a] = b;
-        } 
-    }
-}
-chooseExpenses();
-
-appData.moneyPerDay = (appData.budjet / 30).toFixed();
-
-function detectLevel() {
-    if (appData.moneyPerDay < 100) {
-        console.log("Минимальый уровень достатка")
-    } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
-        console.log("Средний");
-    } else if (appData.moneyPerDay > 2000) {
-        console.log("Vysokiy");
-    } else {
-        console.log("Oshibka");
-    }
-}
-detectLevel();
-
-
-function chooseOptExpenses() {
+            appData.dayBudjet = (save/30).toFixed();
+            alert("Traty v den: " + appData.dayBudjet)
+        }
+    },
+    detectLevel: function() {
+        if (appData.moneyPerDay < 100) {
+            console.log("Минимальый уровень достатка")
+        } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
+            console.log("Средний");
+        } else if (appData.moneyPerDay > 2000) {
+            console.log("Vysokiy");
+        } else {
+            console.log("Oshibka");
+        }
+    },
+    chooseOptExpenses: function() {
         let i = 0;
         do {
             let a = prompt("Статья необязательных расходов?",''),
@@ -61,10 +60,42 @@ function chooseOptExpenses() {
             }  
         }
         while (i < 3);
-}
-chooseOptExpenses();
+    },
+    checkSavings: function() {
+         if (appData.savings == true) {
+        let save = +prompt("Kakova suma krch?");
+            percent = +prompt("Pod kakoi procent?");
 
-console.log(appData);
+        appData.monthIncome = save/100/12*percent;
+        alert("Dohod v mesyac: " + appData.monthIncome)
+        }
+    },
+    chooseIncome: function() {
+        for (let i = 0; i < 1; i++) {
+            let items = prompt("Что принесёт дополнительный доход? (через запятую)", '')
+            appData.income.push(prompt("Mojet esce sho?"));
+
+            if ( (typeof(items)) === 'string' && (typeof(items)) != null && items != '') {
+                console.log("done");
+                appData.income = items.split(', ');
+                appData.income.sort();
+                i++;
+                } 
+            }   
+        appData.income.forEach(function(item, i, mass){
+            console.log(i+1 + ' Способы доп. заработка: ' + mass)
+        });
+    }
+};
+
+for (key in appData) {
+    console.log("Наша программа включает в себя данные: " + key);
+}
+
+appData.moneyPerDay = (appData.budjet / 30).toFixed();
+
+// console.log(appData);
+
 
 // if (appData.moneyPerDay < 100) {
 //     console.log("Минимальый уровень достатка")
@@ -76,26 +107,6 @@ console.log(appData);
 //     console.log("Oshibka");
 // }
 
-function checkSavings() {
-    if (appData.savings == true) {
-        let save = +prompt("Kakova suma krch?");
-            percent = +prompt("Pod kakoi procent?");
-
-        appData.monthIncome = save/100/12*percent;
-        alert("Dohod v mesyac: " + appData.monthIncome)
-    }
-}
-checkSavings();
-
-function detectDayBudget() {
-    if (appData.savings == true) {
-        let save = +prompt("Kakova suma trat v mesyac?");
-
-        appData.dayBudjet = save/30;
-        alert("Traty v den: " + appData.dayBudjet)
-    }
-}
-detectDayBudget();
 
 
 // let num = 20;
