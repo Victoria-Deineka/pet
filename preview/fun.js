@@ -1,3 +1,10 @@
+alert( null || 2 && 3 || 4 );
+let pizdec = [ ] + 1 + 2;
+a = [1, 2, 3]; 
+b = [1, 2, 3]; 
+console.log(a==b);
+console.log(pizdec);
+
 let money, time;
 
 function start() {
