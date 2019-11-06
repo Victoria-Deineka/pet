@@ -21,6 +21,8 @@ adv.remove();
 
 let yourOpinion = prompt("Спросить у пользователя отношение к технике apple");
 promptForApple.textContent = yourOpinion;
+
+
 // adv.innerHTML = '<h1>hello world!</h1>';
 // adv.textContent = 'hello world!';
 
